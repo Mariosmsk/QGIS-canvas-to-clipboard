@@ -20,11 +20,25 @@
  *                                                                         *
  ***************************************************************************/
 """
-from PyQt4.QtCore import QSettings, QTranslator, qVersion, QCoreApplication
-from PyQt4.QtGui import *
-from qgis.gui import QgsMessageBar
-# Initialize Qt resources from file resources.py
-import resources
+try:
+    from PyQt4.QtCore import QSettings, QTranslator, qVersion, QCoreApplication
+    from PyQt4.QtGui import *
+    from qgis.gui import QgsMessageBar
+    # Initialize Qt resources from file resources.py
+    import resources
+except:
+    # Edit by Marios S. Kyriakou [KIOS Research and Innovation Center of Excellence (KIOS CoE)]
+    # Contact: mariosmsk@gmail.com
+    from PyQt5.QtCore import QSettings, QTranslator, qVersion, QCoreApplication
+    from PyQt5.QtGui import *
+    from PyQt5.QtWidgets import (QWidget)
+    from qgis.utils import Qgis
+    # Initialize Qt resources from file resources.py
+    from . import resources
+
+import os.path
+
+
 import os.path
 
 
@@ -188,8 +202,14 @@ class CopyCanvasToClipboard:
 
     def run(self):
         """Run method that performs all the real work"""
-        QApplication.clipboard().setImage(QImage(QPixmap.grabWidget(self.iface.mapCanvas())))
-        self.iface.messageBar().pushMessage(self.menu, self.tr(u'Map copied'), level=QgsMessageBar.INFO, duration=3)
+        try:
+            QApplication.clipboard().setImage(QImage(QPixmap.grabWidget(self.iface.mapCanvas())))
+            self.iface.messageBar().pushMessage(self.menu, self.tr(u'Map copied'), level=QgsMessageBar.INFO, duration=3)
+        except:
+            # Edit by Marios S. Kyriakou [KIOS Research and Innovation Center of Excellence (KIOS CoE)]
+            # Contact: mariosmsk@gmail.com
+            QApplication.clipboard().setImage(QImage(QWidget.grab(self.iface.mapCanvas())))
+            self.iface.messageBar().pushMessage(self.menu, self.tr(u'Map copied'), level=Qgis.Info, duration=3)
 
 
 				

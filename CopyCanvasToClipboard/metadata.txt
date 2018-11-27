@@ -9,8 +9,9 @@
 [general]
 name=Copy Canvas to Clipboard
 qgisMinimumVersion=2.0
+qgisMaximumVersion=3.99
 description=This plugin creates a button and a shortcut to make a copy of the map canvas and place it in the clipboard
-version=0.1
+version=0.2
 author=Bo Victor Thomsen - Municipality of Frederikssund
 email=bvtho@frederikssund.dk
 
